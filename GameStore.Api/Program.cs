@@ -1,9 +1,13 @@
+using GameStore.Api.Data;
 using GameStore.Api.Endpoints;
 using GameStore.Api.Entities;
 using GameStore.Api.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton(typeof(IGamesRepository<Game, int>), typeof(InMemGamesRepository));
+
+var connString = builder.Configuration.GetConnectionString("GameStoreContext");
+builder.Services.AddNpgsql<GameStoreContext>(connString);
 
 var app = builder.Build();
 
