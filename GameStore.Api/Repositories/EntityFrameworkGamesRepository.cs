@@ -13,31 +13,31 @@ public class EntityFrameworkGamesRepository : IGamesRepository<Game, int>
         this.dbContext = dbContext;
     }
 
-    public void Create(Game game)
+    public async Task CreateAsync(Game game)
     {
         dbContext.Games.Add(game); // Asks EF to keep track of new Entity
-        dbContext.SaveChanges(); // Changes are sent to DB (inserted)
+        await dbContext.SaveChangesAsync(); // Changes are sent to DB (inserted)
     }
 
-    public void Delete(int id)
+    public async Task DeleteAsync(int id)
     {
-        dbContext.Games.Where(game => game.Id == id).ExecuteDelete();
+        await dbContext.Games.Where(game => game.Id == id).ExecuteDeleteAsync();
     }
 
-    public Game? Get(int id)
+    public async Task<Game?> GetAsync(int id)
     {
-        return dbContext.Games.Find(id);
+        return await dbContext.Games.FindAsync(id);
     }
 
-    public IEnumerable<Game> GetAll()
+    public async Task<IEnumerable<Game>> GetAllAsync()
     {
         // return dbContext.Games.AsNoTracking().ToList();
-        return [.. dbContext.Games.AsNoTracking()];
+        return await dbContext.Games.AsNoTracking().ToListAsync();
     }
 
-    public void Update(Game updateGame)
+    public async Task UpdateAsync(Game updateGame)
     {
         dbContext.Update(updateGame);
-        dbContext.SaveChanges();
+        await dbContext.SaveChangesAsync();
     }
 }
