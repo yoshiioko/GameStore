@@ -6,15 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRepositories(builder.Configuration);
 
 builder.Services.AddAuthentication().AddJwtBearer();
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy(Policies.ReadAccess, builder =>
-        builder.RequireClaim("scope", "games:read"));
-
-    options.AddPolicy(Policies.WriteAccess, builder =>
-        builder.RequireClaim("scope", "games:write")
-               .RequireRole("Admin"));
-});
+builder.Services.AddGameStoreAuthorization();
 
 var app = builder.Build();
 
