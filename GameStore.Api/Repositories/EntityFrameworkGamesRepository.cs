@@ -20,7 +20,7 @@ public class EntityFrameworkGamesRepository : IGamesRepository<Game, int>
         dbContext.Games.Add(game); // Asks EF to keep track of new Entity
         await dbContext.SaveChangesAsync(); // Changes are sent to DB (inserted)
 
-        logger.LogInformation($"Created game {game.Name} with price {game.Price}.");
+        logger.LogInformation("Created game {Name} with price {Price}.", game.Name, game.Price);
     }
 
     public async Task DeleteAsync(int id)
