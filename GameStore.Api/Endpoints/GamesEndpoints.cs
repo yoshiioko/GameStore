@@ -16,14 +16,14 @@ public static class GamesEndpoints
 
         group.MapGet("/", async (IGamesRepository<Game, int> repository, ILoggerFactory loggerFactory) =>
         {
-            return Results.Ok((await repository.GetAllAsync()).Select(game => game.AsDto()));
+            return Results.Ok((await repository.GetAllAsync()).Select(game => game.AsDtoV1()));
         });
 
         group.MapGet("/{id}", async (IGamesRepository<Game, int> repository, int id) =>
         {
             Game? game = await repository.GetAsync(id);
 
-            return game is not null ? Results.Ok(game.AsDto()) : Results.NotFound();
+            return game is not null ? Results.Ok(game.AsDtoV1()) : Results.NotFound();
         })
         .WithName(GetGameEndpointName)
         .RequireAuthorization(Policies.ReadAccess);
