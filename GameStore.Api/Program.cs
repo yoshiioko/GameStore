@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using GameStore.Api.Authorization;
 using GameStore.Api.Data;
 using GameStore.Api.Endpoints;
@@ -12,7 +11,11 @@ builder.Services.AddAuthentication().AddJwtBearer();
 builder.Services.AddGameStoreAuthorization();
 
 // Add Versioning using Asp.Versioning.Http
-builder.Services.AddApiVersioning();
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new(1.0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+});
 
 // Add HTTP Logging
 builder.Services.AddHttpLogging(o => { });
