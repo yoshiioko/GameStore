@@ -11,6 +11,9 @@ builder.Services.AddRepositories(builder.Configuration);
 builder.Services.AddAuthentication().AddJwtBearer();
 builder.Services.AddGameStoreAuthorization();
 
+// Add Versioning using Asp.Versioning.Http
+builder.Services.AddApiVersioning();
+
 // Add HTTP Logging
 builder.Services.AddHttpLogging(o => { });
 
