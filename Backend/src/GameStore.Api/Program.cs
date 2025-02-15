@@ -70,4 +70,11 @@ app.MapPut("/games/{id:guid}", (Guid id, Game updatedGame) =>
 })
 .WithParameterValidation();
 
+app.MapDelete("/games/{id:guid}", (Guid id) =>
+{
+    games.RemoveAll(game => game.Id == id);
+
+    return Results.NoContent();
+});
+
 app.Run();
