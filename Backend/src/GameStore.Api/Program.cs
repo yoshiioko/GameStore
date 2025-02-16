@@ -1,24 +1,16 @@
 using GameStore.Api.Models;
 using System.ComponentModel.DataAnnotations;
 using GameStore.Api.Data;
+using GameStore.Api.Features.Games.GetGames;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-const string GetGameEndpointName = "GetGame";
+const string getGameEndpointName = "GetGame";
 
 var data = new GameStoreData();
 
-app.MapGet("/games", () =>
-{
-    return data.GetGames()
-               .Select(game => new GameSummaryDto(
-                   game.Id, 
-                   game.Name, 
-                   game.Genre.Name, 
-                   game.Price, 
-                   game.ReleaseDate));
-});
+app.MapGetGames(data);
 
 app.MapGet("/games/{id:guid}", (Guid id) =>
 {
@@ -33,7 +25,7 @@ app.MapGet("/games/{id:guid}", (Guid id) =>
             game.ReleaseDate, 
             game.Description));
 })
-.WithName(GetGameEndpointName);
+.WithName(getGameEndpointName);
 
 app.MapPost("/games", (CreateGameDto gameDto) =>
 {
@@ -64,7 +56,7 @@ app.MapPost("/games", (CreateGameDto gameDto) =>
         game.Description
         );
     
-    return Results.CreatedAtRoute(GetGameEndpointName, new { id = game.Id }, gamesResponse);
+    return Results.CreatedAtRoute(getGameEndpointName, new { id = game.Id }, gamesResponse);
 })
 .WithParameterValidation();
 
@@ -116,13 +108,6 @@ public record GameDetailsDto(
     decimal Price,
     DateOnly ReleaseDate,
     string Description);
-
-public record GameSummaryDto(
-    Guid Id,
-    string Name,
-    string Genre,
-    decimal Price,
-    DateOnly ReleaseDate);
 
 public record CreateGameDto(
     [Required][StringLength(50)]string Name,
