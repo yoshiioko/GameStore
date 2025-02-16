@@ -6,4 +6,3 @@ public record GameSummaryDto(
     string Genre,
     decimal Price,
     DateOnly ReleaseDate);
-    

@@ -10,10 +10,10 @@ public static class GetGamesEndpoint
         {
             return data.GetGames()
                 .Select(game => new GameSummaryDto(
-                    game.Id, 
-                    game.Name, 
-                    game.Genre.Name, 
-                    game.Price, 
+                    game.Id,
+                    game.Name,
+                    game.Genre.Name,
+                    game.Price,
                     game.ReleaseDate));
         });
     }
