@@ -25,9 +25,9 @@ public static class CreateGameEndpoint
                     ReleaseDate = gameDto.ReleaseDate,
                     Description = gameDto.Description
                 };
-    
+
                 data.AddGame(game);
-    
+
                 var gamesResponse = new GameDetailsDto(
                     game.Id,
                     game.Name,
@@ -36,7 +36,7 @@ public static class CreateGameEndpoint
                     game.ReleaseDate,
                     game.Description
                 );
-    
+
                 return Results.CreatedAtRoute(EndpointNames.GetGame, new { id = game.Id }, gamesResponse);
             })
             .WithParameterValidation();

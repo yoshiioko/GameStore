@@ -11,14 +11,16 @@ public static class GetGameEndpoint
             {
                 var game = data.GetGame(id);
 
-                return game is null ? Results.NotFound() : Results.Ok(
-                    new GameDetailsDto(
-                        game.Id, 
-                        game.Name, 
-                        game.Genre.Id, 
-                        game.Price, 
-                        game.ReleaseDate, 
-                        game.Description));
+                return game is null
+                    ? Results.NotFound()
+                    : Results.Ok(
+                        new GameDetailsDto(
+                            game.Id,
+                            game.Name,
+                            game.Genre.Id,
+                            game.Price,
+                            game.ReleaseDate,
+                            game.Description));
             })
             .WithName(EndpointNames.GetGame);
     }
