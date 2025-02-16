@@ -53,7 +53,7 @@ public class GameStoreData
 
     public Game? GetGame(Guid id) => _games.Find(game => game.Id == id);
 
-    public void GamesAdd(Game game)
+    public void AddGame(Game game)
     {
         game.Id = Guid.NewGuid();
         _games.Add(game);
