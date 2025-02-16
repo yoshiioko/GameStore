@@ -6,7 +6,7 @@ public static class DeleteGameEndpoint
 {
     public static void MapDeleteGame(this IEndpointRouteBuilder app, GameStoreData data)
     {
-        app.MapDelete("/games/{id:guid}", (Guid id) =>
+        app.MapDelete("/{id:guid}", (Guid id) =>
         {
             data.RemoveGame(id);
 

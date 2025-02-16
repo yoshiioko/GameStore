@@ -11,10 +11,12 @@ public static class GamesEndpoints
 {
     public static void MapGames(this IEndpointRouteBuilder app, GameStoreData data)
     {
-        app.MapGetGames(data);
-        app.MapGetGame(data);
-        app.MapCreateGame(data);
-        app.MapUpdateGame(data);
-        app.MapDeleteGame(data);
+        var group = app.MapGroup("/games");
+        
+        group.MapGetGames(data);
+        group.MapGetGame(data);
+        group.MapCreateGame(data);
+        group.MapUpdateGame(data);
+        group.MapDeleteGame(data);
     }
 }
