@@ -4,7 +4,9 @@ using GameStore.Api.Features.Genres;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Register services
+var connString = builder.Configuration.GetConnectionString("GameStore");
+
+builder.Services.AddSqlite<GameStoreContext>(connString);
 builder.Services.AddTransient<GameDataLogger>();
 builder.Services.AddSingleton<GameStoreData>();
 
