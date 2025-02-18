@@ -24,6 +24,7 @@ public class GameStoreData
                 Id = Guid.NewGuid(),
                 Name = "Street Fighter II",
                 Genre = _genres[0],
+                GenreId = _genres[0].Id,
                 Price = 19.99m,
                 ReleaseDate = new DateOnly(1992, 7, 15),
                 Description =
@@ -34,6 +35,7 @@ public class GameStoreData
                 Id = Guid.NewGuid(),
                 Name = "Final Fantasy XIV",
                 Genre = _genres[3],
+                GenreId = _genres[3].Id,
                 Price = 59.99m,
                 ReleaseDate = new DateOnly(2010, 9, 30),
                 Description =
@@ -44,6 +46,7 @@ public class GameStoreData
                 Id = Guid.NewGuid(),
                 Name = "FIFA 23",
                 Genre = _genres[4],
+                GenreId = _genres[4].Id,
                 Price = 69.99m,
                 ReleaseDate = new DateOnly(2022, 9, 27),
                 Description = "FIFA 23 is a football video game published by EA Sports."
