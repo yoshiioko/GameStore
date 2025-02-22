@@ -8,7 +8,7 @@ public static class CreateGameEndpoint
 {
     public static void MapCreateGame(this IEndpointRouteBuilder app)
     {
-        app.MapPost("/", async (CreateGameDto gameDto, GameStoreContext dbContext, ILoggerFactory loggerFactory) =>
+        app.MapPost("/", async (CreateGameDto gameDto, GameStoreContext dbContext, ILogger<Program> logger) =>
             {
                 var game = new Game
                 {
@@ -21,8 +21,7 @@ public static class CreateGameEndpoint
 
                 await dbContext.Games.AddAsync(game);
                 await dbContext.SaveChangesAsync();
-
-                var logger = loggerFactory.CreateLogger("Games");
+                
                 logger.LogInformation("Created game {GameName} with price {GamePrice}", game.Name, game.Price);
 
                 var gamesResponse = new GameDetailsDto(
