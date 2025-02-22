@@ -7,9 +7,9 @@ public static class GetGameEndpoint
 {
     public static void MapGetGame(this IEndpointRouteBuilder app)
     {
-        app.MapGet("/{id:guid}", (Guid id, GameStoreContext dbContext) =>
+        app.MapGet("/{id:guid}", async (Guid id, GameStoreContext dbContext) =>
             {
-                var game = dbContext.Games.Find(id);
+                var game = await dbContext.Games.FindAsync(id);
 
                 return game is null
                     ? Results.NotFound()
