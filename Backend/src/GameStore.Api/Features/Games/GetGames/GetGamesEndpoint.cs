@@ -12,7 +12,10 @@ public static class GetGamesEndpoint
             // Simple logic used for pagination purposes
             var skipCount = (request.PageNumber - 1) * request.PageSize;
 
-            var gamesOnPage = await dbContext.Games
+            var filteredGames = dbContext.Games
+                .Where(game => string.IsNullOrWhiteSpace(request.Name) || game.Name.Contains(request.Name));
+
+            var gamesOnPage = await filteredGames
                 .OrderBy(game => game.Name)
                 .Skip(skipCount)
                 .Take(request.PageSize)
@@ -26,7 +29,7 @@ public static class GetGamesEndpoint
                 .AsNoTracking()
                 .ToListAsync();
 
-            var totalGames = await dbContext.Games.CountAsync();
+            var totalGames = await filteredGames.CountAsync();
             var totalPages = (int)Math.Ceiling(totalGames / (double)request.PageSize);
 
             return new GamesPageDto(totalPages, gamesOnPage);
